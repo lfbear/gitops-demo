@@ -2,6 +2,8 @@
 
 This is a GitOps demo on GitLab and ArgoCD, you can experience GitOps quickly by it.
 
+**Modify 'variables' part in `.gitlab-ci.yml` before you experience.**
+
 This document will introduce all files in this repo.
 
 - `README.md`: It's me
@@ -15,3 +17,4 @@ Docker image build description for main.go
 The entry file for ArgoCD
 - `deployment.yaml`:
 To tell Kubernetes how to create or modify instances of the pods that hold this demo application
+
