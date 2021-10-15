@@ -1,0 +1,57 @@
+# This .gitlab-ci.yml is passed with the gitlab-runner typed 'shell'
+# Setting the following variables, and add the variable 'GIT_PWD' in CI/CD Settings in this repo
+variables:
+  REGISTRY_IMAGE_REPO: lfbear/gitops-test
+  REGISTRY_IMAGE_TAG: $REGISTRY_IMAGE_REPO:$CI_COMMIT_SHA
+  GIT_REPO_SCHEME: http # http or https
+  GIT_REPO_URL: 10.32.32.180:8080/myapp/gitops-test.git # git repo URL without scheme
+  GIT_USER: root
+
+stages:
+  - build
+  - deploy
+
+build-image:
+  image: docker:dind
+  tags:
+    - test
+  stage: build
+  variables:
+    GIT_STRATEGY: none
+# # Remove the hash if you have not login the registry on gitlib-runner machine    
+#  before_script:
+#    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+  script:
+    - cd /tmp
+    - rm -fr gitops-test
+    - git clone $GIT_REPO_SCHEME://$GIT_USER:$GIT_PWD@$GIT_REPO_URL
+    - cd gitops-test
+    - docker build -t $REGISTRY_IMAGE_TAG .
+    - docker push $REGISTRY_IMAGE_TAG
+  only:
+    - main
+
+deploy-by-argo:
+  image: alpine/git
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - cd /tmp
+    - rm -fr gitops-test
+    - git clone $GIT_REPO_SCHEME://$GIT_USER:$GIT_PWD@$GIT_REPO_URL
+    - cd gitops-test
+    - git config --global user.email "root@yours.com"
+    - git config --global user.name "gitops-test"
+    - git checkout main
+    - git pull
+    - git status
+    - sed -i "s#$REGISTRY_IMAGE_REPO:\w*#$REGISTRY_IMAGE_REPO:$CI_COMMIT_SHA#" deployment.yaml
+    - git add deployment.yaml
+    - git commit -m "AutoCommitByRobot"
+    - git status
+    - git push $GIT_REPO_SCHEME://$GIT_USER:$GIT_PWD@$GIT_REPO_URL --all -o ci.skip
+  tags:
+    - test
+  only:
+    - main
