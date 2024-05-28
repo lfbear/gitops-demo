@@ -13,5 +13,5 @@ RUN apk --no-cache add ca-certificates
 
 WORKDIR /usr/local/bin
 
-COPY --from=builder /usr/src/app/app .
-CMD ["./app"]
+COPY --from=builder /usr/src/app/demo .
+CMD ["./demo"]
