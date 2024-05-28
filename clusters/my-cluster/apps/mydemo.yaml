@@ -13,3 +13,7 @@ spec:
   path: "./"
   prune: true
   timeout: 1m
+  images:
+  - name: demo
+    newName: lfbear/gitops-test
+    newTag: "6a4912a"
