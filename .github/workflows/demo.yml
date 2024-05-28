@@ -57,6 +57,12 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+
+      - name: Set Short Sha
+        id: short_sha
+        run: echo "value=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+        shell: bash
+
       - name: Modify version info
         run: sed -i "s#newTag:\ .*#newTag:\ \"${{ steps.short_sha.outputs.value }}\"#" ./clusters/my-cluster/apps/mydemo.yaml
 

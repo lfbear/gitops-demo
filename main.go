@@ -3,6 +3,7 @@ package main
 import (
     "fmt"
     "net/http"
+    "log"
 )
 
 func hello(w http.ResponseWriter, req *http.Request) {
@@ -14,5 +15,9 @@ func main() {
 
     http.HandleFunc("/", hello)
 
-    http.ListenAndServe(":80", nil)
+    err := http.ListenAndServe(":80", nil)
+
+    if err != nil {
+        log.Panic(err)
+    }
 }
