@@ -52,7 +52,7 @@ jobs:
           tags: lfbear/gitops-test:${{ steps.short_sha.outputs.value }}
 
   deploy:
-  
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
