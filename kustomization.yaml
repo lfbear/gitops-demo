@@ -3,3 +3,8 @@ resources:
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: default
+
+images:
+ - name: demo
+   newName: lfbear/gitops-test
+   newTag: a58ee074a0cdf40c5f728074a22b61ded2242300

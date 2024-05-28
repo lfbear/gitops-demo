@@ -11,7 +11,7 @@ on:
 
 jobs:
 
-  build:
+  pipeline:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -34,3 +34,14 @@ jobs:
           context: .
           push: true
           tags: lfbear/gitops-test:${{ steps.short_sha.outputs.value }}
+
+      - name: Modify version info
+        run: sed -i "s#newTag:\ .*#newTag:\ \"${{ steps.short_sha.outputs.value }}\"#" ./kustomization.yaml
+
+      - name: Commit report
+        run: |
+          git config --local user.name 'GitOps Robot'
+          git config --local user.email '<>'
+          git add .
+          git commit -m "🤖 ${{ github.actor }} release a new version. demo: ${{ steps.short_sha.outputs.value }}"
+          git push

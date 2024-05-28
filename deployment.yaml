@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: testapp
+  name: mydemo
   labels:
-    app: testapp
+    app: mydemo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: testapp
+      app: mydemo
   template:
     metadata:
       labels:
-        app: testapp
+        app: mydemo
     spec:
       containers:
-      - image: lfbear/gitops-test:a58ee074a0cdf40c5f728074a22b61ded2242300
-        name: testapp
+      - image: demo
+        name: mydemo
