@@ -10,6 +10,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: "./kustomization.yaml"
+  path: "./"
   prune: true
   timeout: 1m
