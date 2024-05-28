@@ -2,9 +2,10 @@
 
 This are two GitOps demos with only one source on GitLab & ArgoCD and GitHub & FluxCD, you can experience GitOps quickly by it.
 
+This document will introduce all files in this repo.
+
 ## Common files
 - `README.md`: It's me
-
 - `main.go`: 
 A demo application source
 - `go.mod`: 
@@ -15,6 +16,8 @@ Docker image build description for main.go
 The entry file for Deployment
 - `deployment.yaml`:
 To tell Kubernetes how to create or modify instances of the pods that hold this demo application
+- `service.yaml`:
+The access way of this demo application
 
 ## GitLab & ArgoCD
 
@@ -30,7 +33,3 @@ The pipeline description in GitHub
 The FluxCD system and application description files for setup
 
 **Install FluxCD and place config files in a sub-folder in `clusters` and the `apps` folder can be reused**
-
-
-This document will introduce all files in this repo.
-
