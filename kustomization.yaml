@@ -7,4 +7,4 @@ namespace: default
 images:
  - name: demo
    newName: lfbear/gitops-test
-   newTag: a58ee074a0cdf40c5f728074a22b61ded2242300
+   newTag: "37431d4"
