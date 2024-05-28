@@ -1,10 +1,18 @@
 package main
 
-import "fmt"
-import "time"
+import (
+    "fmt"
+    "net/http"
+)
 
+func hello(w http.ResponseWriter, req *http.Request) {
+
+    fmt.Fprintf(w, "hello, world!\n")
+}
 
 func main() {
-    fmt.Println("hello KCD!")
-    time.Sleep(1 * time.Hour)
+
+    http.HandleFunc("/", hello)
+
+    http.ListenAndServe(":80", nil)
 }

@@ -1,5 +1,5 @@
 # This file is a template, and might need editing before it works on your project.
-FROM golang:1.14-alpine as builder
+FROM golang:1.21.10-alpine as builder
 
 WORKDIR /usr/src/app
 
