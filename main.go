@@ -3,7 +3,7 @@ package main
 import (
     "fmt"
     "net/http"
-    "log"
+    "logs"
 )
 
 func hello(w http.ResponseWriter, req *http.Request) {
