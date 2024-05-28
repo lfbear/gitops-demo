@@ -11,7 +11,23 @@ on:
 
 jobs:
 
-  pipeline:
+  golangci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.58
+
+      - name: Test
+        run: go test -v ./...
+
+# kinds of jobs: e2e tesing, code security check ...
+
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -35,6 +51,12 @@ jobs:
           push: true
           tags: lfbear/gitops-test:${{ steps.short_sha.outputs.value }}
 
+  deploy:
+  
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
       - name: Modify version info
         run: sed -i "s#newTag:\ .*#newTag:\ \"${{ steps.short_sha.outputs.value }}\"#" ./clusters/my-cluster/apps/mydemo.yaml
 
