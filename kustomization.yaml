@@ -8,4 +8,4 @@ resources:
 images:
  - name: demo
    newName: lfbear/gitops-test
-   newTag: "37431d4"
+   newTag: "6a4912a"
