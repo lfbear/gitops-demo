@@ -16,4 +16,4 @@ spec:
   images:
   - name: demo
     newName: lfbear/gitops-test
-    newTag: "2384139"
+    newTag: "6552b37"
